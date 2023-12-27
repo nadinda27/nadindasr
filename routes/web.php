@@ -17,9 +17,14 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/login', [AuthController::class, 'index'])->name('auth.login');
 
-Route::get('/', function () {
+Route::get('/register', [AuthController::class, 'regis'])->name('register');
+Route::post('/store', [AuthController::class, 'store'])->name('authregister');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+route::get('/', function () {
     return redirect(route('auth.login'));
 });
 
 
-Route::resource('/student', StudentController::class);
+Route::resource('/student', StudentController::class)->middleware('auth');
